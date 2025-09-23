@@ -1,12 +1,25 @@
+"use client";
+
+import { useState } from "react";
 import style from "./page.module.css";
 import SearchBar from "@/components/searchBar";
 import ResultBox from "@/components/ResultBox";
 import MapButton from "@/components/MapButton";
 
 export default function Home() {
+  const [keyword, setKeyword] = useState("");
+  const [results, setResults] = useState<any[]>([]);
+
+  const handleSearch = async (query: string) => {
+    setKeyword(query);
+    const res = await fetch(`api/search?query=${query}`);
+    const data = await res.json();
+    setResults(data);
+  };
+
   return (
     <div>
-      <SearchBar />
+      <SearchBar onSearch={handleSearch} />
       <div
         style={{
           color: "#8B0029",

@@ -2,9 +2,22 @@
 import { useState } from "react";
 import style from "./searchBar.module.css";
 import { Menu, Search, MoreVertical } from "lucide-react";
-export default function SearchBar() {
+export default function SearchBar({
+  onSearch,
+}: {
+  onSearch: (query: string) => void;
+}) {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isSearchOpen, setSearchOpen] = useState(false);
+  const [input, setInput] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (input.trim()) {
+      onSearch(input);
+    }
+  };
+
   return (
     <div className={style.searchBar}>
       <Menu
@@ -12,10 +25,19 @@ export default function SearchBar() {
           setMenuOpen(!isMenuOpen);
         }}
       ></Menu>
-      <div style={{ flexGrow: "1" }}>커리</div>
+      <form style={{ flexGrow: "1" }} onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+        />
+      </form>
       <Search
+        style={{ cursor: "pointer" }}
         onClick={() => {
-          setSearchOpen(!isSearchOpen);
+          if (input.trim()) {
+            onSearch(input);
+          }
         }}
       ></Search>
       <MoreVertical></MoreVertical>
