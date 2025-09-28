@@ -8,7 +8,6 @@ export default function SearchBar({
   onSearch: (query: string) => void;
 }) {
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const [isSearchOpen, setSearchOpen] = useState(false);
   const [input, setInput] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -25,13 +24,16 @@ export default function SearchBar({
           setMenuOpen(!isMenuOpen);
         }}
       ></Menu>
+
       <form style={{ flexGrow: "1" }} onSubmit={handleSubmit}>
         <input
+          className={style.search}
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
       </form>
+
       <Search
         style={{ cursor: "pointer" }}
         onClick={() => {

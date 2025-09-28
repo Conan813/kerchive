@@ -11,6 +11,8 @@
   margin-right: auto;
   top: 810px;
   left: 550px;
+  text-decoration: none; /* 밑줄 제거 */
+  color: inherit; /* 부모 색상 상속 */
 }
 .mapButton svg {
   margin-top: 20px;
