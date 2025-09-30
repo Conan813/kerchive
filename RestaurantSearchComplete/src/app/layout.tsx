@@ -40,7 +40,7 @@ export default function RootLayout({
       >
         <Script
           strategy="beforeInteractive"
-          src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID`}
+          src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=15stsn568d`}
         />
         {children}
       </body>
