@@ -11,7 +11,13 @@ export default function Home() {
 
   const handleSearch = async (query: string) => {
     setKeyword(query);
-    const res = await fetch(`api/search?query=${query}`);
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/recipe/search?title=${query}`
+    );
+    if (!res.ok) {
+      console.error("API Error:", res.status);
+      return;
+    }
     const data = await res.json();
     setResults(data);
   };
@@ -29,9 +35,25 @@ export default function Home() {
       >
         검색결과
       </div>
-      <ResultBox id="1" />
-      <ResultBox id="2" />
-      <ResultBox id="3" />
+      <div
+        style={{
+          height: "500px",
+          overflowY: "auto",
+          marginLeft: "75px",
+          marginRight: "75px",
+        }}
+      >
+        {results.map((recipe) => (
+          <ResultBox
+            key={recipe.id}
+            id={recipe.id}
+            title={recipe.title}
+            uploader_id={recipe.uploader_id}
+            created_at={recipe.created_at}
+            thumbnail_url={recipe.thumbnail_url}
+          />
+        ))}
+      </div>
     </div>
   );
 }
